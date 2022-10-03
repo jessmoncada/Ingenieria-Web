@@ -29,7 +29,7 @@ export const InventarioView = () => {
   return (
     <div className='container'>
 
-      <div className="mt-2 row row-cols-1 row-cols-md-3 g-4">
+      <div className="mt-2 row row-cols-1 row-cols-md-4 g-4">
 
         {
           inventarios.map((inventario) => {
@@ -41,7 +41,9 @@ export const InventarioView = () => {
       </div>
       {
         openModal ?
-          <InventarioNew handleOpenModal={handleOpenModal}/>
+          <InventarioNew 
+          handleOpenModal={handleOpenModal}
+          listarInventarios={listarInventarios}/>
           :
           (<button className="button btn btn-dark" onClick={ handleOpenModal }>
             <i className="fa-solid fa-plus"></i>
