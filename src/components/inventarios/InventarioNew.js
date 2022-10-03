@@ -87,7 +87,7 @@ export const InventarioNew = ({ handleOpenModal }) => {
     setValoresForm({ ...valoresForm, [name]: value })
   }
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async(e) => {
     e.preventDefault();
     const inventario = {
       serial, modelo, descripcion, color, foto, fechaCompra, precio, 
@@ -105,10 +105,18 @@ export const InventarioNew = ({ handleOpenModal }) => {
       }
     }
     console.log(inventario);
+  
+
+  try{ 
+    const {data} = await crearInventarios (inventario);
+    console.log(data);
+
+  } 
+catch (error){
+console.log(error);
+
   }
-
-
-
+}
   return (
     <div className='sidebar'>
       <div className='container-fluid'>
