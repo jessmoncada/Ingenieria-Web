@@ -4,6 +4,7 @@ import { getMarcas } from '../../services/marcaService';
 import { getTipoEquipo } from '../../services/tipoEquipoService';
 import { getUsuarios } from '../../services/usuarioService';
 import { crearInventarios } from '../../services/inventarioService';
+import Swal from 'sweetalert2';
 
 export const InventarioNew = ({ handleOpenModal }) => {
 
@@ -87,36 +88,43 @@ export const InventarioNew = ({ handleOpenModal }) => {
     setValoresForm({ ...valoresForm, [name]: value })
   }
 
-  const handleOnSubmit = async(e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     const inventario = {
-      serial, modelo, descripcion, color, foto, fechaCompra, precio, 
+      serial, modelo, descripcion, color, foto, fechaCompra, precio,
       usuario: {
-        _id:usuario
+        _id: usuario
       },
       marca: {
-        _id:marca
+        _id: marca
       },
       tipoEquipo: {
-        _id:tipo
+        _id: tipo
       },
       estadoEquipo: {
-        _id:estado
+        _id: estado
       }
     }
     console.log(inventario);
-  
 
-  try{ 
-    const {data} = await crearInventarios (inventario);
-    console.log(data);
 
-  } 
-catch (error){
-console.log(error);
+    try {
+      Swal.fire({
+        allowOutsideClick: false,
+        text: 'Cargando...'
+      });
+      Swal.showLoading();
+      const { data } = await crearInventarios(inventario);
+      console.log(data);
+      Swal.close();
+      handleOpenModal();
 
+    }
+    catch (error) {
+      console.log(error);
+      Swal.close();
+    }
   }
-}
   return (
     <div className='sidebar'>
       <div className='container-fluid'>
