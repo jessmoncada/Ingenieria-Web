@@ -87,6 +87,26 @@ export const InventarioNew = ({ handleOpenModal }) => {
     setValoresForm({ ...valoresForm, [name]: value })
   }
 
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    const inventario = {
+      serial, modelo, descripcion, color, foto, fechaCompra, precio, 
+      usuario: {
+        _id:usuario
+      },
+      marca: {
+        _id:marca
+      },
+      tipoEquipo: {
+        _id:tipo
+      },
+      estadoEquipo: {
+        _id:estado
+      }
+    }
+    console.log(inventario);
+  }
+
 
 
   return (
@@ -106,7 +126,7 @@ export const InventarioNew = ({ handleOpenModal }) => {
             <hr />
           </div>
         </div>
-        <form>
+        <form onSubmit={(e) => handleOnSubmit(e)}>
           <div className='row'>
             <div className='col'>
               <div className="mb-3">
@@ -155,7 +175,7 @@ export const InventarioNew = ({ handleOpenModal }) => {
             <div className='col'>
               <div className="mb-3">
                 <label className="form-label">Foto</label>
-                <input type="text" name='foto'
+                <input type="url" name='foto'
                   required
                   value={foto}
                   onChange={(e) => handleOnChange(e)}
