@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { getInventarioPorId } from '../../services/inventarioService'
-
+import { getEstadoEquipo } from '../../services/estadoEquipoService';
+import { getMarcas } from '../../services/marcaService';
+import { getTipoEquipo } from '../../services/tipoEquipoService';
+import { getUsuarios } from '../../services/usuarioService';
 
 export const InventarioUpdate = () => {
 
@@ -15,6 +18,72 @@ export const InventarioUpdate = () => {
   const [estados, setEstadoEquipo] = useState([]);
   const { serial = '', modelo = '', descripcion = '', color = '', foto = '', fechaCompra = '', precio = '', usuario, marca, tipo, estado } = valoresForm;
  
+
+  const listarUsuarios = async () => {
+    try {
+      const { data } = await getUsuarios();
+      setUsuarios(data);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    listarUsuarios();
+  },
+    []);
+
+
+  const listarMarcas = async () => {
+    try {
+      const { data } = await getMarcas();
+      setMarcas(data);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  useEffect(() => {
+    listarMarcas();
+  },
+    []);
+
+
+  const listarTipos = async () => {
+    try {
+      const { data } = await getTipoEquipo();
+      setTipoEquipo(data);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  useEffect(() => {
+    listarTipos();
+  },
+    []);
+
+
+  const listarEstados = async () => {
+    try {
+      const { data } = await getEstadoEquipo();
+      setEstadoEquipo(data);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  useEffect(() => {
+    listarEstados();
+  },
+    []);
   const getInventario = async () => {
     try {
       const { data } = await getInventarioPorId(inventarioId);
@@ -30,6 +99,25 @@ export const InventarioUpdate = () => {
   useEffect(() => {
     getInventario();
   }, [inventarioId]);
+
+
+  useEffect(() => {
+   
+      setValoresForm({
+        serial: inventario.serial,
+        modelo: inventario.modelo,
+        descripcion: inventario.descripcion,
+        color: inventario.color,
+        foto: inventario.foto,
+        fechaCompra: inventario.fechaCompra,
+        precio: inventario.precio,
+        usuario: inventario.usuario,
+        marca: inventario.marca,
+        tipo: inventario.tipoEquipo,
+        estado: inventario.estadoEquipo,
+      });
+  }, [inventario]);
+
 
   const handleOnChange = ({ target }) => {
     const { name, value } = target;
