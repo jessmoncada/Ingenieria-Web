@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { getInventarioPorId } from '../../services/inventarioService'
+import { editInventarios, getInventarioPorId } from '../../services/inventarioService'
 import { getEstadoEquipo } from '../../services/estadoEquipoService';
 import { getMarcas } from '../../services/marcaService';
 import { getTipoEquipo } from '../../services/tipoEquipoService';
 import { getUsuarios } from '../../services/usuarioService';
+import Swal from 'sweetalert2';
 
 export const InventarioUpdate = () => {
 
@@ -126,9 +127,38 @@ export const InventarioUpdate = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    const inventario = {
+      serial, modelo, descripcion, color, foto, fechaCompra, precio,
+      usuario: {
+        _id: usuario
+      },
+      marca: {
+        _id: marca
+      },
+      tipoEquipo: {
+        _id: tipo
+      },
+      estadoEquipo: {
+        _id: estado
+      }
+    }
+    try {
+      Swal.fire({
+        allowOutsideClick: false,
+        text: 'Cargando...'
+      });
+      Swal.showLoading();
+      const { data } = await editInventarios(inventarioId, inventario);
+      console.log(data);
+      Swal.close();
+    }
+    catch (error) {
+      console.log(error);
+      Swal.close();
+    }
   }
   return (
-    <div className='cantainer-fluid mt-3 mb-2'>
+    <div className='container-fluid mt-3 mb-2'>
       <div className='card'>
         <div className='card-header'>
           <h5 className='card-title'> Detalle Activo </h5>
@@ -139,7 +169,7 @@ export const InventarioUpdate = () => {
               <img src={inventario?.foto} />
 
             </div>
-            <div className='col-md-9 text-white'>
+            <div className='col-md-8 text-white'>
               <form onSubmit={(e) => handleOnSubmit(e)}>
                 <div className='row'>
                   <div className='col'>
@@ -295,7 +325,7 @@ export const InventarioUpdate = () => {
 
                 <div className='row'>
                   <div className='col'>
-                    <button>Guardar</button>
+                    <button className= 'btn btn-outline-primary' >Guardar</button>
 
                   </div>
                 </div>
