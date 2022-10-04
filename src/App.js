@@ -18,7 +18,7 @@ const App = () => {
         <Route exact path='/marcas' component={MarcaView}/>
         <Route exact path='/usuarios' component={UsuarioView}/>
         <Route exact path='/tipos' component={TipoView}/>
-        <Route exact path= '/inventarios/edit/:id' component={InventarioUpdate}/>
+        <Route exact path= '/inventarios/edit/:inventarioId' component={InventarioUpdate}/>
         <Redirect to='/'/>
 
     </Switch>
