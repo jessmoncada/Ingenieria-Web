@@ -87,12 +87,18 @@ export const InventarioUpdate = () => {
     []);
   const getInventario = async () => {
     try {
+      Swal.fire({
+        allowOutsideClick: false,
+        text: 'Cargando...'
+      });
+      Swal.showLoading();
       const { data } = await getInventarioPorId(inventarioId);
-      console.log(data);
       setInventario(data);
+      Swal.close();
     }
     catch (error) {
       console.log(error);
+      Swal.close();
     }
 
   }
@@ -155,6 +161,7 @@ export const InventarioUpdate = () => {
     catch (error) {
       console.log(error);
       Swal.close();
+      Swal.fire('error', 'Ocurrio un error! Por favor validar los datos ingresados', 'error');
     }
   }
   return (

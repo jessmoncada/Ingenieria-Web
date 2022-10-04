@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getInventarios } from '../../services/inventarioService'
 import { InventarioCard } from './InventarioCard'
 import { InventarioNew } from './InventarioNew';
+import Swal from 'sweetalert2';
 
 export const InventarioView = () => {
 
@@ -11,11 +12,19 @@ export const InventarioView = () => {
 
   const listarInventarios = async () => {
     try {
+      Swal.fire({
+        allowOutsideClick: false,
+        text: 'Cargando...'
+      });
+      Swal.showLoading();
       const { data } = await getInventarios();
       console.log(data);
       setInventarios(data);
-    } catch (error) {
+      Swal.close();
+    }
+    catch (error) {
       console.log(error);
+      Swal.close();
     }
   }
 
@@ -52,4 +61,3 @@ export const InventarioView = () => {
     </div>
   )
 }
-
