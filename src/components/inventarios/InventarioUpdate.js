@@ -17,7 +17,7 @@ export const InventarioUpdate = () => {
   const [tipos, setTipoEquipo] = useState([]);
   const [estados, setEstadoEquipo] = useState([]);
   const { serial = '', modelo = '', descripcion = '', color = '', foto = '', fechaCompra = '', precio = '', usuario, marca, tipo, estado } = valoresForm;
- 
+
 
   const listarUsuarios = async () => {
     try {
@@ -102,20 +102,20 @@ export const InventarioUpdate = () => {
 
 
   useEffect(() => {
-   
-      setValoresForm({
-        serial: inventario.serial,
-        modelo: inventario.modelo,
-        descripcion: inventario.descripcion,
-        color: inventario.color,
-        foto: inventario.foto,
-        fechaCompra: inventario.fechaCompra,
-        precio: inventario.precio,
-        usuario: inventario.usuario,
-        marca: inventario.marca,
-        tipo: inventario.tipoEquipo,
-        estado: inventario.estadoEquipo,
-      });
+
+    setValoresForm({
+      serial: inventario.serial,
+      modelo: inventario.modelo,
+      descripcion: inventario.descripcion,
+      color: inventario.color,
+      foto: inventario.foto,
+      fechaCompra: inventario.fechaCompra,
+      precio: inventario.precio,
+      usuario: inventario.usuario,
+      marca: inventario.marca,
+      tipo: inventario.tipoEquipo,
+      estado: inventario.estadoEquipo,
+    });
   }, [inventario]);
 
 
