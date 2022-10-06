@@ -4,7 +4,23 @@ import {    getMarcas, crearMarcas, editMarcas } from '../../services/marcaServi
 export const MarcaView = () => {
 
   const [valoresForm, setValoresForm] = useState({});
+  const [marcas, setMarcas] = useState([])
   const {nombre = " ", estado=""} = valoresForm;
+
+
+  const listarMarcas = async () => {
+    try{
+      const resp = await getMarcas();
+      setMarcas(resp.data);
+
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{
+    listarMarcas();
+  }, [])
 
   const handleOnChange = (e) => {
     setValoresForm({...valoresForm, [e.target.name]: e.target.value});
@@ -16,6 +32,7 @@ export const MarcaView = () => {
     try{
       const resp = await crearMarcas(valoresForm);
       console.log(resp.data);
+      setValoresForm({nombre: '', estado: '' });
  
     }catch(error){
       console.log(error);
@@ -40,11 +57,29 @@ export const MarcaView = () => {
             <option value="Inactivo">Inactivo</option>
           </select>
       </div>
-      <button type="submit" className="btn btn-primary">Submit</button>
+      <button type="submit" className="btn btn-outline-primary">Guardar</button>
       </form>
+      <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Estado</th>
+      </tr>
+  </thead>
+  <tbody>
+
+    {
+      marcas.map(marca => {
+        return <tr>
+          <td> {marca.nombre}</td>
+          <td> {marca.estado}</td>
+        </tr>
+      })
+    }
+   
+  </tbody>
+</table>
       </div>
-   
-   
 
   )
 }
