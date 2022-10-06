@@ -33,7 +33,7 @@ export const TipoView = () => {
     try{
       const resp = await crearTipoEquipo(valoresForm);
       console.log(resp.data);
-      setValoresForm({nombre: '', estado: '' });
+      setValoresForm({nombre: '', estado: '', fechaActualizacion: '', fechaCreacion :''});
  
     }catch(error){
       console.log(error);
