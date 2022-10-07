@@ -9,6 +9,7 @@ export const UsuarioView = () => {
   const {nombre = " ", email="", estado="" , fechaActualizacion= '', fechaCreacion =''} = valoresForm;
 
 
+
   const listarUsuarios = async () => {
     try{
       const resp = await getUsuarios();
@@ -40,6 +41,15 @@ export const UsuarioView = () => {
     }
     
   }
+
+
+
+  
+
+  
+
+
+  
 
   return (
       <div className="container-fluid">
